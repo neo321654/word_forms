@@ -31,25 +31,39 @@ class MyHomePageState extends State<MyHomePage> {
   String _path_rules = '';
   String _path_final_result = '';
 
-  Future<void> _pickFile() async {
-
-
+  Future<void> _pickInputFile() async {
     try {
-
       String path = await _getPath();
-        final file = File(path);
-        final content = await file.readAsString();
-        setState(() {
-          _path_input = '...${path.substring(path.length-26,)}';
-          _fileContent = content;
-        });
-
+      final file = File(path);
+      final content = await file.readAsString();
+      setState(() {
+        _path_input = '...${path.substring(
+          path.length - 26,
+        )}';
+        _fileContent = content;
+      });
     } catch (e) {
       print('Error picking file: $e');
     }
   }
 
-  Future<String> _getPath()async{
+  Future<void> _pickRulesFile() async {
+    try {
+      String path = await _getPath();
+      final file = File(path);
+      final content = await file.readAsString();
+      setState(() {
+        _path_rules = '...${path.substring(
+          path.length - 26,
+        )}';
+        _fileContent = content;
+      });
+    } catch (e) {
+      print('Error picking file: $e');
+    }
+  }
+
+  Future<String> _getPath() async {
     try {
       String? path = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -57,13 +71,12 @@ class MyHomePageState extends State<MyHomePage> {
       ).then((result) => result?.files.first.path);
 
       if (path != null) {
-      return path;
+        return path;
       }
     } catch (e) {
       print('Error picking file: $e');
     }
     return 'empty';
-
   }
 
   @override
@@ -87,23 +100,39 @@ class MyHomePageState extends State<MyHomePage> {
             children: [
               Column(
                 children: [
-                   Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(_path_input),
                   ),
                   ElevatedButton(
-                    onPressed: _pickFile,
+                    onPressed: _pickInputFile,
                     child: const Text('Выбрать исходный файл'),
                   ),
                 ],
               ),
-              ElevatedButton(
-                onPressed: _pickFile,
-                child: const Text('Выбрать файл с правилами'),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(_path_rules),
+                  ),
+                  ElevatedButton(
+                    onPressed: _pickRulesFile,
+                    child: const Text('Выбрать файл с правилами'),
+                  ),
+                ],
               ),
-              ElevatedButton(
-                onPressed: _pickFile,
-                child: const Text('Создать файл с результатом'),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(_path_input),
+                  ),
+                  ElevatedButton(
+                    onPressed: _pickInputFile,
+                    child: const Text('Создать файл с результатом'),
+                  ),
+                ],
               ),
             ],
           ),
