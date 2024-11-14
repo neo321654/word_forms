@@ -70,6 +70,8 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   print('//// ${listToEdit}');
   print('//// ${listEmphasis}');
   print('//// ${listWithEditedEmphasis}');
+
+  onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
 }
 
 

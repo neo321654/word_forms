@@ -40,7 +40,7 @@ class MyHomePageState extends State<MyHomePage> {
       final content = await file.readAsString();
       setState(() {
         _path_input = path;
-        _fileContent = content;
+        _fileContent = 'Входящие данные для обработки.\n \n \n $content';
       });
     } catch (e) {
       print('Error picking file: $e');
@@ -54,7 +54,7 @@ class MyHomePageState extends State<MyHomePage> {
       final content = await file.readAsString();
       setState(() {
         _path_rules = path;
-        _fileContent = content;
+        _fileContent = 'Правила для обработки.\n \n \n $content';
       });
     } catch (e) {
       print('Error picking file: $e');
