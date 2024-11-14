@@ -1,26 +1,33 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
-
-import 'dart:io';
-import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-void main() async {
-  final inputPath = 'input.txt'; // Замените на ваш путь к файлу
-  final inputData = inputPath;
-  final allInputs = File(inputData).readAsLinesSync();
+import 'package:open_file/open_file.dart';
 
-  // Получаем путь к директории "Документы"
-  final documentsDirectory = await getApplicationDocumentsDirectory();
+// void main() async {
+//   // ... (ваш код для сохранения файла)
+//
+//   // Открытие файла
+//   final outputPath = path.join(documentsDirectory.path, 'output.txt');
+//   await OpenFile.open(outputPath);
+// }
 
-  // Создаем имя файла для сохранения
-  final outputPath = path.join(documentsDirectory.path, 'output.txt');
-
-  // Сохраняем allInputs в output.txt
-  File(outputPath).writeAsStringSync(allInputs.join('\n'));
-
-  print('Данные успешно сохранены в файл: $outputPath');
-}
+// void main() async {
+//   final inputPath = 'input.txt'; // Замените на ваш путь к файлу
+//   final inputData = inputPath;
+//   final allInputs = File(inputData).readAsLinesSync();
+//
+//   // Получаем путь к директории "Документы"
+//   final documentsDirectory = await getApplicationDocumentsDirectory();
+//
+//   // Создаем имя файла для сохранения
+//   final outputPath = path.join(documentsDirectory.path, 'output.txt');
+//
+//   // Сохраняем allInputs в output.txt
+//   File(outputPath).writeAsStringSync(allInputs.join('\n'));
+//
+//   print('Данные успешно сохранены в файл: $outputPath');
+// }
 
 
 
@@ -137,6 +144,8 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   print(outputPath);
   /// отправляю резултать в ui
   onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+
+  await OpenFile.open(outputPath);
 }
 
 
