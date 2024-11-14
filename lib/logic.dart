@@ -1,7 +1,8 @@
 import 'dart:io';
+import 'dart:ui';
 
 // void main() async {
-void mainLogic({required String inputPath, required rulePath,}) async {
+void mainLogic({required String inputPath, required rulePath,required Function(String) onResult }) async {
 
   final rulesList = await getAllRulesFromFile(rulePath);
   final inputData = inputPath;

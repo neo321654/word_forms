@@ -84,6 +84,12 @@ class MyHomePageState extends State<MyHomePage> {
     return 'empty';
   }
 
+  void _onResult(String result){
+    setState(() {
+      _fileContent = result;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +141,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      mainLogic(inputPath: _path_input, rulePath: _path_rules);
+                      mainLogic(inputPath: _path_input, rulePath: _path_rules,onResult: _onResult);
                     },
                     child: const Text('Создать файл с результатом'),
                   ),
