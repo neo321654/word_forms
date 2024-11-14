@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import 'logic.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -132,7 +134,9 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Text(_getShortFileName(_path_input)),
                   ),
                   ElevatedButton(
-                    onPressed: _pickInputFile,
+                    onPressed: () {
+                      mainLogic(inputPath: _path_input, rulePath: _path_rules);
+                    },
                     child: const Text('Создать файл с результатом'),
                   ),
                 ],
@@ -146,9 +150,9 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(child: Text(_fileContent)),
-          )),
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(child: Text(_fileContent)),
+              )),
         ],
       ),
     );

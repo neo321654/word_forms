@@ -1,8 +1,10 @@
 import 'dart:io';
 
-void main() async {
-  final rulesList = await getAllRulesFromFile('lib/22.txt');
-  final inputData = 'lib/1.txt';
+// void main() async {
+void mainLogic({required String inputPath, required rulePath,}) async {
+
+  final rulesList = await getAllRulesFromFile(rulePath);
+  final inputData = inputPath;
   final allInputs = File(inputData).readAsLinesSync();
 
   String input = allInputs[2];
