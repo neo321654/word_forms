@@ -1,12 +1,56 @@
 import 'dart:io';
-import 'dart:ui';
+import 'package:path/path.dart' as path;
+
+import 'dart:io';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+
+void main() async {
+  final inputPath = 'input.txt'; // Замените на ваш путь к файлу
+  final inputData = inputPath;
+  final allInputs = File(inputData).readAsLinesSync();
+
+  // Получаем путь к директории "Документы"
+  final documentsDirectory = await getApplicationDocumentsDirectory();
+
+  // Создаем имя файла для сохранения
+  final outputPath = path.join(documentsDirectory.path, 'output.txt');
+
+  // Сохраняем allInputs в output.txt
+  File(outputPath).writeAsStringSync(allInputs.join('\n'));
+
+  print('Данные успешно сохранены в файл: $outputPath');
+}
+
+
+
+//
+// void main() {
+//   final inputPath = 'input.txt'; // Замените на ваш путь к файлу
+//   final inputData = inputPath;
+//   final allInputs = File(inputData).readAsLinesSync();
+//
+//   // Получаем путь к директории, где находится inputPath
+//   final directory = path.dirname(inputData);
+//
+//   // Создаем имя файла для сохранения
+//   final outputPath = path.join(directory, 'output.txt');
+//
+//   // Сохраняем allInputs в output.txt
+//   File(outputPath).writeAsStringSync(allInputs.join('\n'));
+//
+//   print('Данные успешно сохранены в файл: $outputPath');
+// }
+
+
+
 
 // void main() async {
 void mainLogic({required String inputPath, required rulePath,required Function(String) onResult }) async {
 
   final rulesList = await getAllRulesFromFile(rulePath);
-  final inputData = inputPath;
-  final allInputs = File(inputData).readAsLinesSync();
+
+  final allInputs = File(inputPath).readAsLinesSync();
 
   String input = allInputs[2];
 
@@ -71,6 +115,27 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   print('//// ${listEmphasis}');
   print('//// ${listWithEditedEmphasis}');
 
+
+
+  ///сохраняем финальный файл
+  // final directory = path.dirname(inputPath);
+  // final outputPath = path.join(directory, 'output.txt');
+  // Сохраняем allInputs в output.txt
+  // File(outputPath).writeAsStringSync(listWithEditedEmphasis.join('\n'));
+
+
+  // Получаем путь к директории "Документы"
+  final documentsDirectory = await getApplicationDocumentsDirectory();
+
+  // Создаем имя файла для сохранения
+  final outputPath = path.join(documentsDirectory.path, 'output.txt');
+
+  // Сохраняем allInputs в output.txt
+  File(outputPath).writeAsStringSync(allInputs.join('\n'));
+
+
+  print(outputPath);
+  /// отправляю резултать в ui
   onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
 }
 
