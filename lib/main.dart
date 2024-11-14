@@ -137,7 +137,7 @@ class MyHomePageState extends State<MyHomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(_getShortFileName(_path_input)),
+                    child: Text(_getShortFileName('output.txt')),
                   ),
                   ElevatedButton(
                     onPressed: () {

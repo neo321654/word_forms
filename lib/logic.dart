@@ -145,7 +145,7 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   /// отправляю резултать в ui
   onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
 
-  await OpenFile.open(outputPath);
+  await OpenFile.open(documentsDirectory.path);
 }
 
 
