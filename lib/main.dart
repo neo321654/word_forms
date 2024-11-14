@@ -27,8 +27,29 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   String _fileContent = '';
+  String _path_input = '';
+  String _path_rules = '';
+  String _path_final_result = '';
 
   Future<void> _pickFile() async {
+
+
+    try {
+
+      String path = await _getPath();
+        final file = File(path);
+        final content = await file.readAsString();
+        setState(() {
+          _path_input = '...${path.substring(path.length-26,)}';
+          _fileContent = content;
+        });
+
+    } catch (e) {
+      print('Error picking file: $e');
+    }
+  }
+
+  Future<String> _getPath()async{
     try {
       String? path = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -36,15 +57,13 @@ class MyHomePageState extends State<MyHomePage> {
       ).then((result) => result?.files.first.path);
 
       if (path != null) {
-        final file = File(path);
-        final content = await file.readAsString();
-        setState(() {
-          _fileContent = content;
-        });
+      return path;
       }
     } catch (e) {
       print('Error picking file: $e');
     }
+    return 'empty';
+
   }
 
   @override
@@ -56,21 +75,21 @@ class MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Divider(indent: 40,endIndent: 40,),
+          const Divider(
+            indent: 40,
+            endIndent: 40,
+          ),
           const SizedBox(height: 20),
-
-
           Wrap(
             alignment: WrapAlignment.spaceBetween,
             runAlignment: WrapAlignment.spaceBetween,
             spacing: 20,
-
             children: [
               Column(
                 children: [
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text('Выберите файл с текстом'),
+                    child: Text(_path_input),
                   ),
                   ElevatedButton(
                     onPressed: _pickFile,
@@ -89,8 +108,12 @@ class MyHomePageState extends State<MyHomePage> {
             ],
           ),
           const SizedBox(height: 20),
-          const Divider(indent: 40,endIndent: 40,),
-          Expanded(child: Padding(
+          const Divider(
+            indent: 40,
+            endIndent: 40,
+          ),
+          Expanded(
+              child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(child: Text(_fileContent)),
           )),
