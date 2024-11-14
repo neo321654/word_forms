@@ -2,72 +2,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-
 import 'package:open_file/open_file.dart';
 
-// void main() async {
-//   // ... (ваш код для сохранения файла)
+void main() async {
+// void mainLogic({
+//   required String inputPath,
+//   required String selectedOption,
+//   required rulePath,
+//   required Function(String) onResult,
+//   required context,
+// }) async {
+//   final rulesList = await getAllRulesFromFile(rulePath);
 //
-//   // Открытие файла
-//   final outputPath = path.join(documentsDirectory.path, 'output.txt');
-//   await OpenFile.open(outputPath);
-// }
+//   final allInputs = File(inputPath).readAsLinesSync();
 
-// void main() async {
-//   final inputPath = 'input.txt'; // Замените на ваш путь к файлу
-//   final inputData = inputPath;
-//   final allInputs = File(inputData).readAsLinesSync();
-//
-//   // Получаем путь к директории "Документы"
-//   final documentsDirectory = await getApplicationDocumentsDirectory();
-//
-//   // Создаем имя файла для сохранения
-//   final outputPath = path.join(documentsDirectory.path, 'output.txt');
-//
-//   // Сохраняем allInputs в output.txt
-//   File(outputPath).writeAsStringSync(allInputs.join('\n'));
-//
-//   print('Данные успешно сохранены в файл: $outputPath');
-// }
+  final rulesList = await getAllRulesFromFile('lib/22.txt');
+  final inputData = 'lib/1.txt';
+  final allInputs = File(inputData).readAsLinesSync();
 
-
-
-//
-// void main() {
-//   final inputPath = 'input.txt'; // Замените на ваш путь к файлу
-//   final inputData = inputPath;
-//   final allInputs = File(inputData).readAsLinesSync();
-//
-//   // Получаем путь к директории, где находится inputPath
-//   final directory = path.dirname(inputData);
-//
-//   // Создаем имя файла для сохранения
-//   final outputPath = path.join(directory, 'output.txt');
-//
-//   // Сохраняем allInputs в output.txt
-//   File(outputPath).writeAsStringSync(allInputs.join('\n'));
-//
-//   print('Данные успешно сохранены в файл: $outputPath');
-// }
-
-
-
-
-// void main() async {
-void mainLogic({required String inputPath,required String selectedOption, required rulePath,required Function(String) onResult ,required context,}) async {
-
-  final rulesList = await getAllRulesFromFile(rulePath);
-
-  final allInputs = File(inputPath).readAsLinesSync();
 
   String input = allInputs[2];
 
   final List<Map<String, String>> firstListRules = rulesList[0]['data'];
 
   final listToEdit = getInputList(input);
-
-  // print(listToEdit);
-  // print(firstListRules);
 
   ///добавляю приставки
   List<String> listPrefixes =
@@ -79,6 +37,11 @@ void mainLogic({required String inputPath,required String selectedOption, requir
 
     listWithPrefixes.add(addPrefix(listToEdit, prefix));
   });
+
+  print('qqq  $listToEdit');
+  print('qqq  $listWithPrefixes');
+
+
 
   ///добавляю окончания
   List<String> listEndings =
@@ -124,14 +87,11 @@ void mainLogic({required String inputPath,required String selectedOption, requir
   print('//// ${listEmphasis}');
   print('//// ${listWithEditedEmphasis}');
 
-
-
   ///сохраняем финальный файл
   // final directory = path.dirname(inputPath);
   // final outputPath = path.join(directory, 'output.txt');
   // Сохраняем allInputs в output.txt
   // File(outputPath).writeAsStringSync(listWithEditedEmphasis.join('\n'));
-
 
   // Получаем путь к директории "Документы"
   final documentsDirectory = await getApplicationDocumentsDirectory();
@@ -145,40 +105,35 @@ void mainLogic({required String inputPath,required String selectedOption, requir
   }
 
   // Создаем имя файла для сохранения
-  final outputPath = path.join(documentsDirectory.path, 'output','output.txt');
+  final outputPath = path.join(documentsDirectory.path, 'output', 'output.txt');
 
   ///развилка на вариант вывода
-  if(selectedOption=='1'){
-
-
-    //todo проверить как писать в файл
-    // Сохраняем allInputs в output.txt
-    File(outputPath).writeAsStringSync(allInputs.join('\n'));
-
-
-    print(outputPath);
-    /// отправляю резултать в ui
-    onResult('Первый вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
-
-  }else{
-
-    //todo проверить как писать в файл
-    // Сохраняем allInputs в output.txt
-    File(outputPath).writeAsStringSync(allInputs.join('\n'));
-
-
-    print(outputPath);
-    /// отправляю резултать в ui
-    onResult('Второй вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
-
-  }
-
-
-  _showOpenFolderDialog(context,(){OpenFile.open(outputPath1);});
-
-
+  // if (selectedOption == '1') {
+  //   //todo проверить как писать в файл
+  //   // Сохраняем allInputs в output.txt
+  //   File(outputPath).writeAsStringSync(allInputs.join('\n'));
+  //
+  //   print(outputPath);
+  //
+  //   /// отправляю резултать в ui
+  //   onResult(
+  //       'Первый вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+  // } else {
+  //   //todo проверить как писать в файл
+  //   // Сохраняем allInputs в output.txt
+  //   File(outputPath).writeAsStringSync(allInputs.join('\n'));
+  //
+  //   print(outputPath);
+  //
+  //   /// отправляю резултать в ui
+  //   onResult(
+  //       'Второй вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+  // }
+  //
+  // _showOpenFolderDialog(context, () {
+  //   OpenFile.open(outputPath1);
+  // });
 }
-
 
 List<String> setEmphasis(
     List<String> listToEdit, List<String> listMarksDelete) {
@@ -227,7 +182,6 @@ List<String> setEmphasis(
 // число усекаемых букв/надставляемые буквы (могут иметь знак ударения ('), который всегда переносится в словоформу)/величина смещения ударения (может быть 2 значения)/номер слога от конца слова, в которое переносится ударение.
 // Если значения в графах 2-4 дублируются, знак ударения ставится в месте дублировки всё равно только один. В словоформе же может быть несколько знаков ударений (в разных слогах).
 // Если в третьей графе стоит _ , то ударение в исходном слове удаляется.
-
 
 List<String> deleteMarksFromList(
     List<String> listToEdit, List<String> listMarksDelete) {
@@ -394,7 +348,8 @@ void _showOpenFolderDialog(context, _openFolder) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Обработка прошла успешно!\n\nОткрыть папку с файлами?'),
+        title:
+            const Text('Обработка прошла успешно!\n\nОткрыть папку с файлами?'),
         actions: [
           TextButton(
             onPressed: () {
@@ -414,4 +369,3 @@ void _showOpenFolderDialog(context, _openFolder) {
     },
   );
 }
-
