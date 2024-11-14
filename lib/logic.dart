@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
@@ -53,7 +54,7 @@ import 'package:open_file/open_file.dart';
 
 
 // void main() async {
-void mainLogic({required String inputPath, required rulePath,required Function(String) onResult }) async {
+void mainLogic({required String inputPath, required rulePath,required Function(String) onResult ,required context}) async {
 
   final rulesList = await getAllRulesFromFile(rulePath);
 
@@ -145,7 +146,9 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   /// отправляю резултать в ui
   onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
 
-  await OpenFile.open(documentsDirectory.path);
+  _showOpenFolderDialog(context,(){OpenFile.open(documentsDirectory.path);});
+
+
 }
 
 
@@ -357,3 +360,30 @@ String? getRuleByNumber(
   }
   return null; // Возвращаем null, если ключ не найден
 }
+
+void _showOpenFolderDialog(context, _openFolder) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Обработка прошла успешно!\n\nОткрыть папку с файлами?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Закрыть диалоговое окно
+            },
+            child: const Text('Нет'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop(); // Закрыть диалоговое окно
+              _openFolder();
+            },
+            child: const Text('Да'),
+          ),
+        ],
+      );
+    },
+  );
+}
+

@@ -141,7 +141,7 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      mainLogic(inputPath: _path_input, rulePath: _path_rules,onResult: _onResult);
+                      mainLogic(inputPath: _path_input, rulePath: _path_rules,onResult: _onResult,context: context);
                     },
                     child: const Text('Создать файл с результатом'),
                   ),
