@@ -37,9 +37,7 @@ class MyHomePageState extends State<MyHomePage> {
       final file = File(path);
       final content = await file.readAsString();
       setState(() {
-        _path_input = '...${path.substring(
-          path.length - 26,
-        )}';
+        _path_input = path;
         _fileContent = content;
       });
     } catch (e) {
@@ -53,14 +51,19 @@ class MyHomePageState extends State<MyHomePage> {
       final file = File(path);
       final content = await file.readAsString();
       setState(() {
-        _path_rules = '...${path.substring(
-          path.length - 26,
-        )}';
+        _path_rules = path;
         _fileContent = content;
       });
     } catch (e) {
       print('Error picking file: $e');
     }
+  }
+
+  String _getShortFileName(String path) {
+    if (path.length < 26) return path;
+    return '...${path.substring(
+      path.length - 26,
+    )}';
   }
 
   Future<String> _getPath() async {
@@ -102,7 +105,7 @@ class MyHomePageState extends State<MyHomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(_path_input),
+                    child: Text(_getShortFileName(_path_input)),
                   ),
                   ElevatedButton(
                     onPressed: _pickInputFile,
@@ -114,7 +117,7 @@ class MyHomePageState extends State<MyHomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(_path_rules),
+                    child: Text(_getShortFileName(_path_rules)),
                   ),
                   ElevatedButton(
                     onPressed: _pickRulesFile,
@@ -126,7 +129,7 @@ class MyHomePageState extends State<MyHomePage> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: Text(_path_input),
+                    child: Text(_getShortFileName(_path_input)),
                   ),
                   ElevatedButton(
                     onPressed: _pickInputFile,
