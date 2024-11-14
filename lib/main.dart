@@ -3,24 +3,29 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   String _fileContent = '';
 
   Future<void> _pickFile() async {
@@ -46,20 +51,43 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Word forms'),
+        title: const Text('Word forms'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _pickFile,
-              child: Text('Выбрать 1 файл'),
-            ),
-            SizedBox(height: 20),
-            Text(_fileContent),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Wrap(
+
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Text('Выберите файл с текстом'),
+                  ),
+                  ElevatedButton(
+                    onPressed: _pickFile,
+                    child: const Text('Выбрать исходный файл'),
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                onPressed: _pickFile,
+                child: const Text('Выбрать файл с правилами'),
+              ),
+              ElevatedButton(
+                onPressed: _pickFile,
+                child: const Text('Создать файл с результатом'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Divider(indent: 40,endIndent: 40,),
+          Expanded(child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(child: Text(_fileContent)),
+          )),
+        ],
       ),
     );
   }
