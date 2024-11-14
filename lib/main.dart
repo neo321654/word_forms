@@ -56,14 +56,21 @@ class MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Divider(indent: 40,endIndent: 40,),
+          const SizedBox(height: 20),
+
+
           Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            runAlignment: WrapAlignment.spaceBetween,
+            spacing: 20,
 
             children: [
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const Text('Выберите файл с текстом'),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Выберите файл с текстом'),
                   ),
                   ElevatedButton(
                     onPressed: _pickFile,
@@ -82,7 +89,7 @@ class MyHomePageState extends State<MyHomePage> {
             ],
           ),
           const SizedBox(height: 20),
-          Divider(indent: 40,endIndent: 40,),
+          const Divider(indent: 40,endIndent: 40,),
           Expanded(child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(child: Text(_fileContent)),
