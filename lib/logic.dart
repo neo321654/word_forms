@@ -135,8 +135,16 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   // Получаем путь к директории "Документы"
   final documentsDirectory = await getApplicationDocumentsDirectory();
 
+  final outputPath1 = path.join(documentsDirectory.path, 'output');
+
+  // Создаем папку "output", если она не существует
+  final outputDir = Directory(outputPath1);
+  if (!await outputDir.exists()) {
+    await outputDir.create(recursive: true);
+  }
+
   // Создаем имя файла для сохранения
-  final outputPath = path.join(documentsDirectory.path, 'output.txt');
+  final outputPath = path.join(documentsDirectory.path, 'output','output.txt');
 
   // Сохраняем allInputs в output.txt
   File(outputPath).writeAsStringSync(allInputs.join('\n'));
@@ -146,7 +154,7 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   /// отправляю резултать в ui
   onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
 
-  _showOpenFolderDialog(context,(){OpenFile.open(documentsDirectory.path);});
+  _showOpenFolderDialog(context,(){OpenFile.open(outputPath1);});
 
 
 }
