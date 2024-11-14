@@ -108,6 +108,7 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
 
   listWithDeletedMarks.addAll(deleteMarksFromList(listToEdit, listMarksDelete));
 
+  //todo пока что сделаю без него
   ///пункт 6 ударение, проверяю текущее ударение, оно на ок/осн
   ///если если оно на ок и проверка на ок , тогда ничего не меняю
   ///если нет удаляю старое ударение, нахожу последнюю гласную,
@@ -146,6 +147,7 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   // Создаем имя файла для сохранения
   final outputPath = path.join(documentsDirectory.path, 'output','output.txt');
 
+  //todo проверить как писать в файл
   // Сохраняем allInputs в output.txt
   File(outputPath).writeAsStringSync(allInputs.join('\n'));
 

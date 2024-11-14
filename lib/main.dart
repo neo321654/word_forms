@@ -32,6 +32,8 @@ class MyHomePageState extends State<MyHomePage> {
   String _path_input = '';
   String _path_rules = '';
   String _path_final_result = '';
+  String? selectedOption = '1';
+
 
   Future<void> _pickInputFile() async {
     try {
@@ -84,7 +86,7 @@ class MyHomePageState extends State<MyHomePage> {
     return 'empty';
   }
 
-  void _onResult(String result){
+  void _onResult(String result) {
     setState(() {
       _fileContent = result;
     });
@@ -92,6 +94,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Word forms'),
@@ -134,6 +137,8 @@ class MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -141,12 +146,49 @@ class MyHomePageState extends State<MyHomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      mainLogic(inputPath: _path_input, rulePath: _path_rules,onResult: _onResult,context: context);
+                      mainLogic(
+                          inputPath: _path_input,
+                          rulePath: _path_rules,
+                          onResult: _onResult,
+                          context: context);
                     },
                     child: const Text('Создать файл с результатом'),
                   ),
                 ],
               ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Tooltip(
+                    message: 'Первый вариант вывода',
+                    child: Radio<String>(
+                      // title: Center(child: Text('1')),
+                      value: '1',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value;
+                        });
+                      },
+                    ),
+                  ),
+                  Tooltip(
+                    message: 'Второй вариант вывода',
+                    child: Radio<String>(
+                      // title: Text('2'),
+                      value: '2',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+
             ],
           ),
           const SizedBox(height: 20),
@@ -156,9 +198,9 @@ class MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(child: Text(_fileContent)),
-              )),
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(child: Text(_fileContent)),
+          )),
         ],
       ),
     );
