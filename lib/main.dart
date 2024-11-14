@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Файловый выбор'),
+        title: Text('Word forms'),
       ),
       body: Center(
         child: Column(
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ElevatedButton(
               onPressed: _pickFile,
-              child: Text('Выбрать файл'),
+              child: Text('Выбрать 1 файл'),
             ),
             SizedBox(height: 20),
             Text(_fileContent),
