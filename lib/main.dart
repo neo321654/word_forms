@@ -32,8 +32,7 @@ class MyHomePageState extends State<MyHomePage> {
   String _path_input = '';
   String _path_rules = '';
   String _path_final_result = '';
-  String? selectedOption = '1';
-
+  String selectedOption = '1';
 
   Future<void> _pickInputFile() async {
     try {
@@ -94,7 +93,6 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Word forms'),
@@ -138,7 +136,6 @@ class MyHomePageState extends State<MyHomePage> {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
@@ -150,6 +147,7 @@ class MyHomePageState extends State<MyHomePage> {
                           inputPath: _path_input,
                           rulePath: _path_rules,
                           onResult: _onResult,
+                          selectedOption:selectedOption,
                           context: context);
                     },
                     child: const Text('Создать файл с результатом'),
@@ -168,7 +166,7 @@ class MyHomePageState extends State<MyHomePage> {
                       groupValue: selectedOption,
                       onChanged: (value) {
                         setState(() {
-                          selectedOption = value;
+                          selectedOption = value??'1';
                         });
                       },
                     ),
@@ -181,14 +179,13 @@ class MyHomePageState extends State<MyHomePage> {
                       groupValue: selectedOption,
                       onChanged: (value) {
                         setState(() {
-                          selectedOption = value;
+                          selectedOption = value??'2';
                         });
                       },
                     ),
                   ),
                 ],
               ),
-
             ],
           ),
           const SizedBox(height: 20),

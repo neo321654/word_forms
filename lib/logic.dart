@@ -54,7 +54,7 @@ import 'package:open_file/open_file.dart';
 
 
 // void main() async {
-void mainLogic({required String inputPath, required rulePath,required Function(String) onResult ,required context}) async {
+void mainLogic({required String inputPath,required String selectedOption, required rulePath,required Function(String) onResult ,required context,}) async {
 
   final rulesList = await getAllRulesFromFile(rulePath);
 
@@ -147,14 +147,32 @@ void mainLogic({required String inputPath, required rulePath,required Function(S
   // Создаем имя файла для сохранения
   final outputPath = path.join(documentsDirectory.path, 'output','output.txt');
 
-  //todo проверить как писать в файл
-  // Сохраняем allInputs в output.txt
-  File(outputPath).writeAsStringSync(allInputs.join('\n'));
+  ///развилка на вариант вывода
+  if(selectedOption=='1'){
 
 
-  print(outputPath);
-  /// отправляю резултать в ui
-  onResult('Резултат выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+    //todo проверить как писать в файл
+    // Сохраняем allInputs в output.txt
+    File(outputPath).writeAsStringSync(allInputs.join('\n'));
+
+
+    print(outputPath);
+    /// отправляю резултать в ui
+    onResult('Первый вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+
+  }else{
+
+    //todo проверить как писать в файл
+    // Сохраняем allInputs в output.txt
+    File(outputPath).writeAsStringSync(allInputs.join('\n'));
+
+
+    print(outputPath);
+    /// отправляю резултать в ui
+    onResult('Второй вариант вывода выполнения преобразований.\n \n \n $listToEdit \n $listEmphasis \n $listWithEditedEmphasis \n ');
+
+  }
+
 
   _showOpenFolderDialog(context,(){OpenFile.open(outputPath1);});
 
